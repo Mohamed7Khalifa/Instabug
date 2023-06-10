@@ -1,18 +1,15 @@
-version: '3.8'
-services: 
+version: "3"
+services:
   db:
     image: mysql:latest
-    # command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
-    env_file:
-      - ./vars.env
+      - MYSQL_ROOT_PASSWORD=passwd@123
+      - MYSQL_DATABASE=internship
     ports:
       - 3306:3306
     volumes:
       - mysql_data:/var/lib/mysql
-    
+
 
   api:
     build:

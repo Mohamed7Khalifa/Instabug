@@ -1,18 +1,12 @@
-# Start with a base Go image
-FROM golang:alpine AS builder
+# Stage 1: Build stage
+FROM golang:1.16-alpine AS builder
 WORKDIR /app
-ADD go.mod .
 COPY . .
-RUN go build -o main .
+RUN go build
 
-FROM alpine:latest
-# ENV MYSQL_USER=root \
-#     MYSQL_PASS=passwd@123 \
-#     MYSQL_HOST=db \
-#     MYSQL_PORT=3306
-
-RUN apk --no-cache add mysql-client
-COPY --from=builder /app/main /app/main
+# Stage 2: Final stage
+FROM alpine:3.14
 WORKDIR /app
+COPY --from=builder /app/internship-2023 .
 EXPOSE 9090
-CMD ["./main"]
+CMD ["./internship-2023"]
