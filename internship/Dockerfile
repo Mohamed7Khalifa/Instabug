@@ -1,12 +1,18 @@
-# Stage 1: Build stage
-FROM golang:1.16-alpine AS builder
+FROM golang:1.19 AS builder
 WORKDIR /app
-COPY . .
-RUN go build
+COPY go.mod go.sum ./
+RUN go mod download
+COPY *.go ./
 
-# Stage 2: Final stage
+RUN CGO_ENABLED=0 GOOS=linux go build -o /main
+#   Stage 2: Final stage
 FROM alpine:3.14
-WORKDIR /app
-COPY --from=builder /app/internship-2023 .
+WORKDIR /run
+COPY *.sh .
+ENV MYSQL_USER="root" \
+    MYSQL_PASS="secret@123" \
+    MYSQL_HOST="database" \
+    MYSQL_PORT="3306"
+COPY --from=builder /main /main
 EXPOSE 9090
-CMD ["./internship-2023"]
+CMD ["/main"]

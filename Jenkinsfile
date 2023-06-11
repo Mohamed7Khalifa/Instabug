@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                git 'https://github.com/'
+                git 'https://github.com/Mohamed7Khalifa/Instabug.git'
                 withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh """
                 docker login -u ${USERNAME} -p ${PASSWORD}
-                docker build . -t mohamed7khalifa/inernship --network host
-                docker push mohamed7khalifa/inernship
+                docker build ./internship/ -t mohamed7khalifa/inernship-api
+                docker push mohamed7khalifa/inernship-api
                 """
                 }
             }
