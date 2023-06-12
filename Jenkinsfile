@@ -9,9 +9,9 @@ pipeline {
                 echo 'Start Cloning'
                 
                 git branch: 'main', 
-                    credentialsId: 'github',
+                    credentialsId: 'Github',
                     url: 'https://github.com/Mohamed7Khalifa/Instabug.git',
-                    tool: 'default'
+                    gitTool: 'default'
                 
                 echo 'Done'
                 
