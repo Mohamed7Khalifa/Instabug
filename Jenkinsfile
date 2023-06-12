@@ -5,14 +5,8 @@ pipeline {
         stage('build') {
             steps {
                 // Clone the repository
-                
                 echo 'Start Cloning'
-                
-                git branch: 'main', 
-                    credentialsId: 'Github',
-                    url: 'https://github.com/Mohamed7Khalifa/Instabug.git',
-                    gitTool: 'default'
-                
+                git 'https://github.com/Mohamed7Khalifa/Instabug.git'
                 echo 'Done'
                 
                 // Use credentials to log in to Docker registry
