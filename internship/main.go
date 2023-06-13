@@ -1,6 +1,5 @@
 package main
 
-
 import (
 	"encoding/json"
 	"net/http"
@@ -10,7 +9,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-
 func main() {
 	http.ListenAndServe(":9090", &handler{})
 }
@@ -19,8 +17,8 @@ type handler struct {
 }
 
 type row struct {
-	id        int64
-	createdAt time.Time
+	ID        int64
+	CreatedAt time.Time
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -37,13 +35,13 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("Internal Server Error"))
 			return
 		}
-
+		
 		var ret []row
 		for rs.Next() {
 			cur := row{}
 			err = rs.Scan(
-				&cur.id,
-				&cur.createdAt,
+				&cur.ID,
+				&cur.CreatedAt,
 			)
 
 			if err != nil {
