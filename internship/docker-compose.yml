@@ -19,6 +19,11 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - database
+    environment:
+      MYSQL_USER: "root" 
+      MYSQL_PASS: "secret@123"
+      MYSQL_HOST: "database"
+      MYSQL_PORT: "3306"
     ports:
       - 9090:9090
     volumes:
