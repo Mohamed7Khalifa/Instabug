@@ -4,20 +4,26 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                // Clone the repository
-                echo 'Start Cloning'
-                // git 'https://github.com/Mohamed7Khalifa/Instabug.git'
-                git url: 'https://github.com/Mohamed7Khalifa/Instabug.git', credentialsId: 'Github', branch: 'main'
+                script {
+                    try {
+                        // Clone the repository
+                        echo 'Start Cloning'
+                        git url: 'https://github.com/Mohamed7Khalifa/Instabug.git', credentialsId: 'Github', branch: 'main'
 
-                echo 'Done'
-                
-                // Use credentials to log in to Docker registry
-                withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
-                    docker login -u ${USERNAME} -p ${PASSWORD}
-                    docker build -t mohamed7khalifa/api-app ./internship/
-                    docker push mohamed7khalifa/api-app
-                    """
+                        echo 'Done'
+                        
+                        // Use credentials to log in to Docker registry
+                        withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            sh """
+                            docker login -u ${USERNAME} -p ${PASSWORD}
+                            docker build -t mohamed7khalifa/api-app ./internship/
+                            docker push mohamed7khalifa/api-app
+                            """
+                        }
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        error "Build failed: ${e.getMessage()}"
+                    }
                 }
             }
         }
@@ -26,11 +32,12 @@ pipeline {
     post {
         always {
             // Report to Slack regardless of build result
-            slackSend(channel: '#api', message: "Build Status: ${currentBuild.result}")
+            slackSend(channel: '#your-slack-channel', message: "Build Status: ${currentBuild.result}")
         }
+
         failure {
             // Report to Slack if the build fails
-            slackSend(channel: '#api', message: "Build failed!: ${error}")
+            slackSend(channel: '#your-slack-channel', message: "Build failed with error: ${env.ERROR_MESSAGE}")
         }
     }
 }
