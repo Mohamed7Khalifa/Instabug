@@ -57,6 +57,14 @@ At the end you can build the pipeline:
 ![image info](Screenshots/success-pipeline.png)
 ![image info](Screenshots/DockerHub-image.png)
 
+Integrate Slack to Jenkins to report the status of the build and send reports of failure
+
+![image info](Screenshots/slack-configure.png)
+At Success
+![image info](Screenshots/slack-message.png)
+At Failure
+![image info](Screenshots/slack-error.png)
+
 
 ## **Docker compose file that contains both application and mysql database so you can run the app locally**
 

@@ -15,7 +15,7 @@ pipeline {
                         // Use credentials to log in to Docker registry
                         withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh """
-                            docker login -u ${USERNAME} -p
+                            docker login -u ${USERNAME} -p ${PASSWORD}
                             docker build -t mohamed7khalifa/api-app ./internship/
                             docker push mohamed7khalifa/api-app
                             """
@@ -32,7 +32,7 @@ pipeline {
 
     post {
         always {
-            // Report to Slack regardless of build result
+            // Report the build result to Slack
             slackSend(channel: '#api', message: "Build Status: ${currentBuild.result}")
         }
 
