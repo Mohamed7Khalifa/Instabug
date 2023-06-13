@@ -5,6 +5,7 @@ Use the Dockerfile inside the internship folder to build the image to build the 
     docker build -t api-app .
 ```
 then check the size of the image:
+
 ![image info](Screenshots/api-image-size.png)
 
 and run the docker image but must sure that there is MYSQL server running in your machine:
@@ -58,3 +59,24 @@ At the end you can build the pipeline:
 
 
 ## **Docker compose file that contains both application and mysql database so you can run the app locally**
+
+the docker-compose file in the internship folder
+
+## **Helm manifests for kubernetes to deploy the app using them on kubernetes with adding config to support high availability and volume persistence and exposing service to the public**
+
+To start helm manifests open terminal in k8s folder and run:
+```bash 
+    helm instal api-app ./api-app
+```
+![image info](Screenshots/helm-install.png)
+
+Check the ip of minikube to open in browser:
+![image info](Screenshots/minikube-service.png)
+
+Check Kubernetes services and endpoint for the NodePort and see the status of the pods:
+![image info](Screenshots/k8s.png)
+
+Check the app running in browser:
+
+![image info](Screenshots/app-run-minikube.png)
+
