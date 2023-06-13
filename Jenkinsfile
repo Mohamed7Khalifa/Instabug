@@ -39,7 +39,7 @@ pipeline {
         failure {
             // Report to Slack if the build fails
             slackSend(channel: '#api', message: "Build failed with error: ${env.ERROR_MESSAGE}", color: 'danger', attachments: [
-                slackAttachment(fallback: 'Error Logs', color: 'danger', text: sh(returnStdout: true, script: 'docker logs <container-id-or-name>'))
+                slackAttachment(fallback: 'Error Logs', color: 'danger', text: sh(returnStdout: true, script: 'docker logs jenkins'))
             ])
         }
     }
