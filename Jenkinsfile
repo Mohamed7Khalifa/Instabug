@@ -32,12 +32,12 @@ pipeline {
     post {
         always {
             // Report to Slack regardless of build result
-            slackSend(channel: '#your-slack-channel', message: "Build Status: ${currentBuild.result}")
+            slackSend(channel: '#api', message: "Build Status: ${currentBuild.result}")
         }
 
         failure {
             // Report to Slack if the build fails
-            slackSend(channel: '#your-slack-channel', message: "Build failed with error: ${env.ERROR_MESSAGE}")
+            slackSend(channel: '#api', message: "Build failed with error: ${env.ERROR_MESSAGE}")
         }
     }
 }
