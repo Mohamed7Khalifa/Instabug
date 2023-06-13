@@ -22,6 +22,7 @@ pipeline {
                         }
                     } catch (Exception e) {
                         currentBuild.result = 'FAILURE'
+                        env.ERROR_MESSAGE = e.getMessage()
                         error "Build failed: ${e.getMessage()}"
                     }
                 }
