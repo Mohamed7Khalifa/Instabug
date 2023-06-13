@@ -22,4 +22,21 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            // Report to Slack regardless of build result
+            slackSend(channel: '#api', message: "Build Status: ${currentBuild.result}")
+        }
+
+        success {
+            // Report to Slack if the build is successful
+            slackSend(channel: '#api', message: "Build succeeded!")
+        }
+
+        failure {
+            // Report to Slack if the build fails
+            slackSend(channel: '#api', message: "Build failed!")
+        }
+    }
 }
