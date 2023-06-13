@@ -88,3 +88,13 @@ Check the app running in browser:
 
 ![image info](Screenshots/app-run-minikube.png)
 
+# Bonus Section
+
+## **Secure your containers as much as you can**
+- Remove any hard code password or any access data about the container
+- Use Official Images
+- Use Private Container registry 
+
+## **Fix a bug in the code that would appear when you test the api**
+The bug is that the GET method return  an array of empty objects: 
+![image info](Screenshots/Get-method.png)
