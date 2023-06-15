@@ -89,7 +89,15 @@ Check the app running in browser:
 ![image info](Screenshots/app-run-minikube.png)
 
 # Bonus Section
-
+## **Add autoscaling manifest for number of replicas**
+this is done be enable the autoscaling in the values.yaml and set minimum replicas and maximum replicas and target cpu utilization percentage. All of this for horizontal pod autoscaling:
+```bash
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 100
+      targetCPUUtilizationPercentage: 80
+```
 ## **Secure your containers as much as you can**
 - Remove any hard code password or any access data about the container
 - Use Official Images
